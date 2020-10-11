@@ -34,7 +34,6 @@ public class Cep implements Serializable{
 	@Column
 	private String complemento;
 	
-	@Column
 	private String bairro;
 	
 	@Column
