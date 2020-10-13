@@ -27,9 +27,9 @@ public class CepController {
 	
 	@PostMapping
 	public ResponseEntity<Object> postCep(@Valid @RequestBody CepRequestDTO dto) {
-		if(dto.getCep() == "") {
+		if(dto.getCep() == "" || dto.getCep() == null) {
 			return new ResponseEntity<>(new Message("Cep Obrigatório"), HttpStatus.BAD_REQUEST);
-		}if(dto.getLogradouro() == "") {		
+		}if(dto.getLogradouro() == "" || dto.getCep() == null) {		
 			return new ResponseEntity<>(new Message("Logradouro Obrigatório"), HttpStatus.BAD_REQUEST);
 		}
 		Cep saveCep = repository.save(dto.build());
