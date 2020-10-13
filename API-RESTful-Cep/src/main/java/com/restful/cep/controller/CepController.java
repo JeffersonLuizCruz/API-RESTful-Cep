@@ -1,6 +1,10 @@
 package com.restful.cep.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restful.cep.dto.request.CepRequestDTO;
 import com.restful.cep.dto.response.CepResponseDTO;
+import com.restful.cep.exception.Message;
+import com.restful.cep.model.Cep;
 import com.restful.cep.repository.CepRepository;
 
 @RestController
@@ -20,14 +26,24 @@ public class CepController {
 	private CepRepository repository;
 	
 	@PostMapping
-	public CepRequestDTO postCep(@RequestBody CepRequestDTO dto) {
-		repository.save(dto.build());
-		return dto;
+	public ResponseEntity<Object> postCep(@Valid @RequestBody CepRequestDTO dto) {
+		if(dto.getCep() == "") {
+			return new ResponseEntity<>(new Message("Cep Obrigatório"), HttpStatus.BAD_REQUEST);
+		}if(dto.getLogradouro() == "") {		
+			return new ResponseEntity<>(new Message("Logradouro Obrigatório"), HttpStatus.BAD_REQUEST);
+		}
+		Cep saveCep = repository.save(dto.build());
+		return new ResponseEntity<>(saveCep, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{cep}")
-	public CepResponseDTO getCep(@PathVariable String cep) {
-		return new CepResponseDTO(repository.getByCep(cep));
+	public ResponseEntity<Object> getCep(@PathVariable String cep) {
+		Cep cepResponse = repository.getByCep(cep);
+		if(cepResponse != null) {
+			return new ResponseEntity<>(new CepResponseDTO(cepResponse), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(new Message("Busca não encontrada"), HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

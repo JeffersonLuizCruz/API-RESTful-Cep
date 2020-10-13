@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+
 @Accessors(chain = true)
 @Data
 @NoArgsConstructor
@@ -35,6 +37,7 @@ public class Cep implements Serializable{
 	@Column
 	private String complemento;
 	
+	@Column
 	private String bairro;
 	
 	@Column
