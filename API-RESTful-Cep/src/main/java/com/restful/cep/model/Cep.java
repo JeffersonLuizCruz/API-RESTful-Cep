@@ -28,27 +28,20 @@ public class Cep implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
 	
-	@Column(length = 8, nullable = false, unique = true)
+	@Column
 	private String cep;
-	
-	@Column(nullable = false, unique = true)
+	@Column
 	private String logradouro;
-	
 	@Column
 	private String complemento;
-	
 	@Column
 	private String bairro;
-	
 	@Column
 	private String localidade;
-	
 	@Column
 	private String uf;
-	
 	@Column
 	private String unidade;
-	
 	@Column
 	private String ibge;
 

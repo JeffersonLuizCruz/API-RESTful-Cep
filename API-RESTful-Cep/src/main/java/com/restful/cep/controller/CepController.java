@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import com.restful.cep.dto.request.CepRequestDTO;
 import com.restful.cep.dto.response.CepResponseDTO;
@@ -33,7 +35,7 @@ public class CepController {
 			return new ResponseEntity<>(new Message("Logradouro Obrigatório"), HttpStatus.BAD_REQUEST);
 		}
 		Cep saveCep = repository.save(dto.build());
-		return new ResponseEntity<>(saveCep, HttpStatus.CREATED);
+		return new ResponseEntity<>(new CepResponseDTO(saveCep), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{cep}")
@@ -42,7 +44,19 @@ public class CepController {
 		if(cepResponse != null) {
 			return new ResponseEntity<>(new CepResponseDTO(cepResponse), HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>(new Message("Busca não encontrada"), HttpStatus.NOT_FOUND);
+			String url = "https://viacep.com.br/ws/"+cep+"/json/";
+			RestTemplate restTamplate = new RestTemplate();
+			
+			try {
+			Cep cepRestTamplate = restTamplate.getForObject(url, Cep.class);
+			repository.save(cepRestTamplate);
+			
+			return new ResponseEntity<>(new CepResponseDTO(cepRestTamplate), HttpStatus.OK);
+			}catch(HttpClientErrorException err) {
+				
+				return new ResponseEntity<>(new Message("Busca não encontrada"), err.getStatusCode());
+			}
+			
 		}
 	}
 
