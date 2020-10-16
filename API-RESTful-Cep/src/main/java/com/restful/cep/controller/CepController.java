@@ -39,7 +39,7 @@ public class CepController {
 	}
 	
 	@GetMapping("/{cep}")
-	public ResponseEntity<Object> getCep(@PathVariable String cep) {
+	public ResponseEntity<Object> getCep(@PathVariable String cep) throws Message{
 		Cep cepResponse = repository.getByCep(cep);
 		if(cepResponse != null) {
 			return new ResponseEntity<>(new CepResponseDTO(cepResponse), HttpStatus.OK);
@@ -49,9 +49,13 @@ public class CepController {
 			
 			try {
 			Cep cepRestTamplate = restTamplate.getForObject(url, Cep.class);
-			repository.save(cepRestTamplate);
 			
+			while(cepRestTamplate != cepRestTamplate)  {
+			repository.save(cepRestTamplate);
 			return new ResponseEntity<>(new CepResponseDTO(cepRestTamplate), HttpStatus.OK);
+			}
+			
+			throw new Message("Cep já cadastrado no sistema");
 			}catch(HttpClientErrorException err) {
 				
 				return new ResponseEntity<>(new Message("Busca não encontrada"), err.getStatusCode());
