@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +29,8 @@ public class Cep implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
 	
-	@Column
+	@NotNull(message = "Não pode ser vazio")
+	@Column(unique = true, nullable = false)
 	private String cep;
 	@Column
 	private String logradouro;

@@ -1,5 +1,7 @@
 package com.restful.cep.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,7 @@ public class CepController {
 	}
 	
 	@GetMapping("/{cep}")
-	public ResponseEntity<Object> getCep(@PathVariable String cep) throws Message{
+	public ResponseEntity<Object> getCep(@PathVariable String cep){
 		Cep cepResponse = repository.getByCep(cep);
 		if(cepResponse != null) {
 			return new ResponseEntity<>(new CepResponseDTO(cepResponse), HttpStatus.OK);
@@ -49,16 +51,12 @@ public class CepController {
 			
 			try {
 			Cep cepRestTamplate = restTamplate.getForObject(url, Cep.class);
-			
-			while(cepRestTamplate != cepRestTamplate)  {
 			repository.save(cepRestTamplate);
-			return new ResponseEntity<>(new CepResponseDTO(cepRestTamplate), HttpStatus.OK);
-			}
 			
-			throw new Message("Cep já cadastrado no sistema");
+			return new ResponseEntity<>(new CepResponseDTO(cepRestTamplate), HttpStatus.OK);
 			}catch(HttpClientErrorException err) {
 				
-				return new ResponseEntity<>(new Message("Busca não encontrada"), err.getStatusCode());
+				return new ResponseEntity<>(new Message("Não encontrado"), HttpStatus.NOT_FOUND);
 			}
 			
 		}
