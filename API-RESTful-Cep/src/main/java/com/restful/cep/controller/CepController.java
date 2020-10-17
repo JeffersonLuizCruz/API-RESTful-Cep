@@ -1,7 +1,5 @@
 package com.restful.cep.controller;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
