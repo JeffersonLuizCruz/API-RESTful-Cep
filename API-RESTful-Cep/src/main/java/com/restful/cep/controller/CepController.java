@@ -20,7 +20,6 @@ import com.restful.cep.dto.response.CepResponseDTO;
 import com.restful.cep.exception.Message;
 import com.restful.cep.model.Cep;
 import com.restful.cep.repository.CepRepository;
-import com.restful.cep.service.CepService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,9 +31,6 @@ public class CepController {
 	
 	@Autowired
 	private CepRepository repository;
-	
-	@Autowired
-	CepService service;
 	
 	@PostMapping @ApiOperation("Evio de CEP para Servidor")
 	public ResponseEntity<Object> postCep(@Valid @RequestBody CepRequestDTO dto) {
@@ -48,7 +44,7 @@ public class CepController {
 	}
 	
 	@GetMapping("/{cep}") @ApiOperation("Consulta de CEP")
-	public ResponseEntity<Object> getCep(@Valid @RequestBody @PathVariable String cep) throws Message{
+	public ResponseEntity<Object> getCep(@PathVariable String cep){
 		Cep cepResponse = repository.getByCep(cep);
 		if(cepResponse != null) {
 			return new ResponseEntity<>(new CepResponseDTO(cepResponse), HttpStatus.OK);
@@ -58,7 +54,6 @@ public class CepController {
 			
 			try {
 			Cep cepRestTamplate = restTamplate.getForObject(url, Cep.class);
-			repository.save(cepRestTamplate);
 			return new ResponseEntity<>(new CepResponseDTO(cepRestTamplate), HttpStatus.OK);
 			}catch(HttpClientErrorException err) {
 				
