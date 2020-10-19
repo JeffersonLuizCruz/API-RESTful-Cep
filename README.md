@@ -50,7 +50,7 @@
 }
 
 ## Requisitos:
-- [] Java 11<br>
-- [] DTO<br>
-- [] Java Swagger2 Swagger-ui<br>
-- [] Java 11
+- [ ] Java 11<br>
+- [ ] DTO<br>
+- [ ] Java Swagger2 Swagger-ui<br>
+- [ ] Java 11
