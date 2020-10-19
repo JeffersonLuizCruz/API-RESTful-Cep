@@ -26,14 +26,14 @@
 
 ### Body:
 {<br>
-	"cep": "",<br>
-	"logradouro": "",<br>
-	"complemento": "",<br>
-	"bairro": "",<br>
-	"localidade": "",<br>
-	"uf": "",<br>
-	"unidade": "",<br>
-	"ibge": ""<br>
+	 <blockquote>"cep": "",<br>
+	 <blockquote>"logradouro": "",<br>
+	 <blockquote>"complemento": "",<br>
+	 <blockquote>"bairro": "",<br>
+	 <blockquote>"localidade": "",<br>
+	 <blockquote>"uf": "",<br>
+	 <blockquote>"unidade": "",<br>
+	 <blockquote>"ibge": ""<br>
 }
 
 ### Resposta:
@@ -50,7 +50,7 @@
 }
 
 ## Requisitos:
--[] Java 11<br>
--[] DTO<br>
--[] Java Swagger2 Swagger-ui<br>
--[] Java 11
+- [] Java 11<br>
+- [] DTO<br>
+- [] Java Swagger2 Swagger-ui<br>
+- [] Java 11
