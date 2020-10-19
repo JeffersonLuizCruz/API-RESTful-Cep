@@ -30,7 +30,7 @@ public class Cep implements Serializable{
 	private Short id;
 	
 	@NotNull(message = "Não pode ser vazio")
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String cep;
 	@Column
 	private String logradouro;

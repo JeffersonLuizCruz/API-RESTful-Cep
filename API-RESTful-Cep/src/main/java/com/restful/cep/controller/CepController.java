@@ -1,5 +1,6 @@
 package com.restful.cep.controller;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,23 @@ import com.restful.cep.dto.response.CepResponseDTO;
 import com.restful.cep.exception.Message;
 import com.restful.cep.model.Cep;
 import com.restful.cep.repository.CepRepository;
+import com.restful.cep.service.CepService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/cep")
+@Api("Api de consulta de CEP")
 public class CepController {
 	
 	@Autowired
 	private CepRepository repository;
 	
-	@PostMapping
+	@Autowired
+	CepService service;
+	
+	@PostMapping @ApiOperation("Evio de CEP para Servidor")
 	public ResponseEntity<Object> postCep(@Valid @RequestBody CepRequestDTO dto) {
 		if(dto.getCep() == "" || dto.getCep() == null) {
 			return new ResponseEntity<>(new Message("Cep Obrigatório"), HttpStatus.BAD_REQUEST);
@@ -38,8 +47,8 @@ public class CepController {
 		return new ResponseEntity<>(new CepResponseDTO(saveCep), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{cep}")
-	public ResponseEntity<Object> getCep(@Valid @PathVariable String cep){
+	@GetMapping("/{cep}") @ApiOperation("Consulta de CEP")
+	public ResponseEntity<Object> getCep(@Valid @RequestBody @PathVariable String cep) throws Message{
 		Cep cepResponse = repository.getByCep(cep);
 		if(cepResponse != null) {
 			return new ResponseEntity<>(new CepResponseDTO(cepResponse), HttpStatus.OK);
@@ -50,7 +59,6 @@ public class CepController {
 			try {
 			Cep cepRestTamplate = restTamplate.getForObject(url, Cep.class);
 			repository.save(cepRestTamplate);
-			
 			return new ResponseEntity<>(new CepResponseDTO(cepRestTamplate), HttpStatus.OK);
 			}catch(HttpClientErrorException err) {
 				
