@@ -26,14 +26,14 @@
 
 ### Body:
 {<br>
-	 <blockquote>"cep": "",<br>
-	 <blockquote>"logradouro": "",<br>
-	 <blockquote>"complemento": "",<br>
-	 <blockquote>"bairro": "",<br>
-	 <blockquote>"localidade": "",<br>
-	 <blockquote>"uf": "",<br>
-	 <blockquote>"unidade": "",<br>
-	 <blockquote>"ibge": ""<br>
+	"cep": "",<br>
+	"logradouro": "",<br>
+	"complemento": "",<br>
+	"bairro": "",<br>
+	"localidade": "",<br>
+	"uf": "",<br>
+	"unidade": "",<br>
+	"ibge": ""<br>
 }
 
 ### Resposta:
