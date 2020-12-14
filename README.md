@@ -9,45 +9,51 @@
 - [GET] http://{host-url}/api/cep/00000000
 
 ### Resposta:
-{<br>
-	"id": "",<br>
+```
+{
+	"id": "",
 	"cep": "",
-	"logradouro": "",<br>
-	"complemento": "",<br>
-	"bairro": "",<br>
-	"localidade": "",<br>
-	"uf": "",<br>
-	"unidade": "",<br>
-	"ibge": ""<br>
+	"logradouro": "",
+	"complemento": "",
+	"bairro": "",
+	"localidade": "",
+	"uf": "",
+	"unidade": "",
+	"ibge": ""
 }
+```
 
 ## Rota [POST]
 - [POST] http://{host-url}/api/cep
 
 ### Body:
-{<br>
-	"cep": "",<br>
-	"logradouro": "",<br>
-	"complemento": "",<br>
-	"bairro": "",<br>
-	"localidade": "",<br>
-	"uf": "",<br>
-	"unidade": "",<br>
-	"ibge": ""<br>
+```
+{
+	"cep": "",
+	"logradouro": "",
+	"complemento": "",
+	"bairro": "",
+	"localidade": "",
+	"uf": "",
+	"unidade": "",
+	"ibge": ""
 }
+```
 
 ### Resposta:
-{<br>
-	"id": "",<br>
-	"cep": "",<br>
-	"logradouro": "",<br>
-	"complemento": "",<br>
-	"bairro": "",<br>
-	"localidade": "",<br>
-	"uf": "",<br>
-	"unidade": "",<br>
-	"ibge": ""<br>
+```
+{
+	"id": "",
+	"cep": "",
+	"logradouro": "",
+	"complemento": "",
+	"bairro": "",
+	"localidade": "",
+	"uf": "",
+	"unidade": "",
+	"ibge": ""
 }
+```
 
 ## Requisitos:
 - [x] Java 11<br>
